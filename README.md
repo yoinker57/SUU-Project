@@ -43,6 +43,8 @@ Kluczowe zalety Pixie:
 
 ### Stos technologiczny
 
+Minikube, Kubectl, Kubernetes, Docker. Pixie, Helm, Grafana
+
 ---
 
 ## Opis studium przypadku
