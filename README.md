@@ -73,7 +73,77 @@ px_sock_shop i monitoring (grafana_values)
 
 ## Sposób instalacji
 
-opis stworzenia całego środowiska (można opisać odpalenie script.py i odpalenie ręczne (linia po linii ze skryptu) 
+Jako krok wstępny należy upewnić się, czy poniższe narzędzia są zainstalowane:
+
+- [Minikube](https://minikube.sigs.k8s.io/docs/start/)
+- [kubectl](https://kubernetes.io/docs/tasks/tools/)
+- [Helm](https://helm.sh/docs/intro/install/)
+- [Pixie CLI (px)](https://docs.px.dev/installing-pixie/install-schemes/cli/)
+
+### Instalacja przez skrypt w Pythonie
+
+Dodatkowo wymagany zainstalowany język Python. 
+
+Krok 1: Przejście do katalogu projektu
+
+```bash
+cd <path_to_repository>/SUU-Project
+```
+
+Krok 2: Uruchomienie skryptu w Pythonie
+
+```bash
+python -m script.py
+```
+
+### Instalacja ręczna
+
+Krok 1: Uruchomienie klastra Minikube
+
+```bash
+minikube start --driver=kvm2 --memory=8192 --cpus=4
+```
+Krok 2: Przejście do katalogu projektu
+
+```bash
+cd <path_to_repository>/SUU-Project
+```
+
+Krok 3: Instalacja Pixie w klastrze
+
+```bash
+px deploy --check=false -y
+```
+
+Krok 4: Wdrożenie przykładowej aplikacji demonstracyjnej
+
+```bash
+px demo deploy px-sock-shop -y
+```
+
+Krok 5: Tworzenie przestrzeni nazw dla monitoringu
+
+```bash
+kubectl create namespace monitoring
+```
+
+Krok 6: Instalacja Grafany z użyciem Helm
+
+Upewnij się, że masz plik `grafana-values.yaml` w bieżącym katalogu. Następnie uruchom:
+
+```bash
+helm upgrade --install grafana grafana/grafana -f grafana-values.yaml -n monitoring
+```
+
+### Dodatkowe uwagi
+
+-
+
+- Pixie UI można otworzyć komendą:
+
+  ```bash
+  px ui
+  ```
 
 ---
 
