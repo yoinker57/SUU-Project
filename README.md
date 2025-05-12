@@ -61,25 +61,25 @@ _placeholder_
 
 ## Architektura rozwiązania
 
-_placeholder_
+px_sock_shop -> Pixie -> za pomocą Grafana Plugin Pixie wysyła do zewnętrznej chmury -> Grafana wysyła zapytanie do chmury
 
 ---
 
 ## Konfiguracja środowiska
 
-_placeholder_
+px_sock_shop i monitoring (grafana_values)
 
 ---
 
 ## Sposób instalacji
 
-_placeholder_
+opis stworzenia całego środowiska (można opisać odpalenie script.py i odpalenie ręczne (linia po linii ze skryptu) 
 
 ---
 
 ## Odtworzenie rozwiązania
 
-_placeholder_
+_placeholder_ 
 
 ---
 
@@ -91,7 +91,7 @@ _placeholder_
 
 ## Wykorzystanie AI
 
-_placeholder_
+_placeholder_ (opisać wykorzystanie AI w rysunkach i do poprawy błędów składniowych i gramatycznych) (próba pracy z AI zawiodła przez niedziałający kod z dokumentacji)
 
 ---
 
