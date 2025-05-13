@@ -55,7 +55,12 @@ Wizualizacja danych telemetrycznych odbywa się w Grafanie — otwartoźródłow
 
 ## Opis studium przypadku
 
-_placeholder_
+Celem projektu jest skonfigurowanie środowiska i wdrożenie dowolnej aplikacji w klastrze Kubernetes z monitoringiem opartym na Pixie i Grafanie.
+W ramach studium wykorzystano aplikację demonstracyjną `px-sock-shop`, jednak jej rola jest wyłącznie ilustracyjna — pełni funkcję testowej aplikacji umożliwiającej sprawdzenie poprawności działania skryptu oraz narzędzi telemetrycznych.
+Dzięki użyciu skryptu pythonowego uzyskujemy:
+- Powtarzalność: jedno wywołanie skryptu odtwarza pełne środowisko obserwowalności.
+- Uniwersalność: brak twardego powiązania z konkretną aplikacją – wystarczy przekazać inny obraz Dockera lub katalog manifestów Kubernetes.
+- Szybkie wdrożenie: proces od „czystego” hosta do działającego dashboardu trwa zazwyczaj poniżej 5 minut (zależnie od zasobów maszyny).
 
 ---
 
