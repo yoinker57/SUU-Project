@@ -98,7 +98,7 @@ cd <path_to_repository>/SUU-Project
 Krok 2: Uruchomienie skryptu w Pythonie
 
 ```bash
-python -m script.py
+python script.py
 ```
 
 ### Instalacja ręczna
