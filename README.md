@@ -176,4 +176,14 @@ TODO: opisać wykorzystanie AI w rysunkach i do poprawy błędów składniowych 
 
 ## Bibliografia
 
-TODO: Dodać linki do każdej dokumentacji która była wykorzystywana
+1. Kubernetes Community. *Minikube*. [https://minikube.sigs.k8s.io/docs/](https://minikube.sigs.k8s.io/docs/)
+
+2. Google. *Kubernetes*. [https://kubernetes.io/docs/home/](https://kubernetes.io/docs/home/)
+
+3. DeisLabs. *Helm*. [https://helm.sh/docs/](https://helm.sh/docs/)
+
+4. New Relic, Inc. *Pixie*. [https://docs.px.dev](https://docs.px.dev)
+
+5. Brendan Gregg. *BPF and eBPF*. [https://www.brendangregg.com/ebpf.html](https://www.brendangregg.com/ebpf.html)
+
+6. Torkel Ödegaard. *Grafana*. [https://grafana.com/grafana/](https://grafana.com/grafana/)
