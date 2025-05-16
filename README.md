@@ -62,15 +62,19 @@ Dzięki użyciu skryptu pythonowego uzyskujemy:
 - Uniwersalność: brak twardego powiązania z konkretną aplikacją – wystarczy przekazać inny obraz Dockera lub katalog manifestów Kubernetes.
 - Szybkie wdrożenie: proces od „czystego” hosta do działającego dashboardu trwa zazwyczaj poniżej 5 minut (zależnie od zasobów maszyny).
 
+TODO: Opis aplikacji px-sock-shop
+
 ---
 
 ## Architektura rozwiązania
 
-px_sock_shop -> Pixie -> za pomocą Grafana Plugin Pixie wysyła do zewnętrznej chmury -> Grafana wysyła zapytanie do chmury
+TODO: Dodać architekturę w sensie diagram jak to się komunikuje ze sobą (px_sock_shop -> Pixie -> za pomocą Grafana Plugin Pixie wysyła do zewnętrznej chmury -> Grafana wysyła zapytanie do chmury)
 
 ---
 
 ## Konfiguracja środowiska
+
+TODO: Opisać grafana_values i trochę jak był konfigurowany px-sock-shop (jeśli była potrzeba żeby działał z Pixie)
 
 px_sock_shop i monitoring (grafana_values)
 
@@ -154,22 +158,22 @@ helm upgrade --install grafana grafana/grafana -f grafana-values.yaml -n monitor
 
 ## Odtworzenie rozwiązania
 
-_placeholder_ 
+TODO: Opisać jak połączyć wszystkie serwisy po instalacji (api tokeny, logowanie do Grafany itd.)
 
 ---
 
 ## Wdrożenie wersji demonstracyjnej
 
-_placeholder_
+TODO: Usunąć jak nie będzie potrzebne
 
 ---
 
 ## Wykorzystanie AI
 
-_placeholder_ (opisać wykorzystanie AI w rysunkach i do poprawy błędów składniowych i gramatycznych) (próba pracy z AI zawiodła przez niedziałający kod z dokumentacji)
+TODO: opisać wykorzystanie AI w rysunkach i do poprawy błędów składniowych i gramatycznych) (próba pracy z AI zawiodła przez niedziałający kod z dokumentacji)
 
 ---
 
 ## Bibliografia
 
-_placeholder_
+TODO: Dodać linki do każdej dokumentacji która była wykorzystywana
