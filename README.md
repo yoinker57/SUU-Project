@@ -55,14 +55,25 @@ Wizualizacja danych telemetrycznych odbywa się w Grafanie — otwartoźródłow
 
 ## Opis studium przypadku
 
-Celem projektu jest skonfigurowanie środowiska i wdrożenie dowolnej aplikacji w klastrze Kubernetes z monitoringiem opartym na Pixie i Grafanie.
-W ramach studium wykorzystano aplikację demonstracyjną `px-sock-shop`, jednak jej rola jest wyłącznie ilustracyjna — pełni funkcję testowej aplikacji umożliwiającej sprawdzenie poprawności działania skryptu oraz narzędzi telemetrycznych.
-Dzięki użyciu skryptu pythonowego uzyskujemy:
-- Powtarzalność: jedno wywołanie skryptu odtwarza pełne środowisko obserwowalności.
-- Uniwersalność: brak twardego powiązania z konkretną aplikacją – wystarczy przekazać inny obraz Dockera lub katalog manifestów Kubernetes.
-- Szybkie wdrożenie: proces od „czystego” hosta do działającego dashboardu trwa zazwyczaj poniżej 5 minut (zależnie od zasobów maszyny).
+W ramach projektu, jako środowisko demonstracyjne, wykorzystywana jest aplikacja [Sock Shop](https://github.com/pixie-labs/sock-shop-microservices-demo). Jest to popularna, realistyczna aplikacja demonstracyjna zbudowana w oparciu o architekturę mikroserwisów.
 
-TODO: Opis aplikacji px-sock-shop
+### Czym Jest Sock Shop?
+Sock Shop to symulacja internetowego sklepu sprzedającego skarpetki. Został zaprojektowany nie jako pełnoprawny sklep, ale jako złożony system demonstracyjny, którego głównym celem jest ilustrowanie i ułatwianie testowania narzędzi i praktyk związanych z:
+- Architekturą mikroserwisów: Prezentuje podział funkcjonalności na wiele niezależnych, komunikujących się ze sobą serwisów.
+- Monitoringiem i obserwowalnością: Stanowi doskonałe środowisko do zbierania logów, metryk i śladów (tracingu) z rozproszonego systemu.
+- Zarządzaniem kontenerami i orkiestracją: Idealnie nadaje się do demonstracji wdrożeń na platformach takich jak Kubernetes, Docker Swarm czy Nomad.
+- Automatyzacją wdrożeń (CI/CD): Poszczególne mikroserwisy mogą być rozwijane i wdrażane niezależnie.
+### Architektura
+Sock Shop składa się z kilkunastu mikroserwisów, z których każdy odpowiada za specyficzny obszar funkcjonalny sklepu. Kluczowe komponenty to m.in.:
+- front-end: Serwuje interfejs użytkownika i działa jako bramka API.
+- catalogue: Zarządza listą produktów (skarpetek).
+- carts: Obsługuje koszyk zakupowy dla użytkowników.
+- orders: Procesuje i przechowuje zamówienia.
+- users: Zarządza danymi użytkowników.
+- payment: Symuluje proces płatności.
+- shipping: Symuluje proces wysyłki.
+
+Co istotne, Sock Shop wykorzystuje różnorodne technologie i języki programowania (np. Go, Java Spring Boot, Node.js, Python), a także różne bazy danych (np. MongoDB, MySQL). Ta architektura doskonale odzwierciedla złożoność i wyzwania typowe dla rzeczywistych środowisk mikroserwisowych, gdzie różne zespoły mogą wybierać technologie najlepiej dopasowane do ich potrzeb.
 
 ---
 
