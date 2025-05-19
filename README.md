@@ -198,3 +198,5 @@ TODO: opisać wykorzystanie AI w rysunkach i do poprawy błędów składniowych 
 5. Brendan Gregg. *BPF and eBPF*. [https://www.brendangregg.com/ebpf.html](https://www.brendangregg.com/ebpf.html)
 
 6. Torkel Ödegaard. *Grafana*. [https://grafana.com/grafana/](https://grafana.com/grafana/)
+
+7. microservices-demo. *microservices-demo*. [https://github.com/microservices-demo/microservices-demo](https://github.com/microservices-demo/microservices-demo)
