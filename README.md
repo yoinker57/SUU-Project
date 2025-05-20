@@ -73,6 +73,8 @@ Sock Shop składa się z kilkunastu mikroserwisów, z których każdy odpowiada 
 - payment: Symuluje proces płatności.
 - shipping: Symuluje proces wysyłki.
 
+![image](https://github.com/microservices-demo/microservices-demo.github.io/blob/HEAD/assets/Architecture.png)
+
 Co istotne, Sock Shop wykorzystuje różnorodne technologie i języki programowania (np. Go, Java Spring Boot, Node.js, Python), a także różne bazy danych (np. MongoDB, MySQL). Ta architektura doskonale odzwierciedla złożoność i wyzwania typowe dla rzeczywistych środowisk mikroserwisowych, gdzie różne zespoły mogą wybierać technologie najlepiej dopasowane do ich potrzeb.
 
 ---
