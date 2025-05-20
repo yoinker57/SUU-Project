@@ -79,7 +79,9 @@ Co istotne, Sock Shop wykorzystuje różnorodne technologie i języki programowa
 
 ## Architektura rozwiązania
 
-TODO: Dodać architekturę w sensie diagram jak to się komunikuje ze sobą (px_sock_shop -> Pixie -> za pomocą Grafana Plugin Pixie wysyła do zewnętrznej chmury -> Grafana wysyła zapytanie do chmury)
+![image](https://github.com/user-attachments/assets/9b989ba0-b3a9-483d-84d7-ea5106b27ff9)
+
+Na zdjęciu powyżej widzimy architekturę rozwiązania. Warto dodać, że to przy pomocy grafany oraz jezyka PXL możemy odpytywać cosmicClouda, a on nam zwraca tylko te dane, które są potrzebne.
 
 ---
 
@@ -88,6 +90,22 @@ TODO: Dodać architekturę w sensie diagram jak to się komunikuje ze sobą (px_
 TODO: Opisać grafana_values i trochę jak był konfigurowany px-sock-shop (jeśli była potrzeba żeby działał z Pixie)
 
 px_sock_shop i monitoring (grafana_values)
+
+Aby poprawnie dostosować aplikację do tego aby działała z pixie nie musimy robić nic. Pixie jest narzędziem, które nie wymaga od nas nic poza zainstalowaniem go, a później korzystaniem albo bezpośrednio przez UI pixie, bądź przez integrację z innymi narzędziami do wizualizacji.
+
+Ostatnią rzeczą, którą musimy zrobić jest dodanie pluginu do grafany, aby móc używać pixie jako źródła danych. Nie jest to za bardzo skomplikowana operacja, wystarczy stworzyć plik `grafana-values.yaml` a w nim dodać:
+
+```yaml
+plugins:
+  - pixie-pixie-datasource
+```
+
+Zapewnimy sobie tym automatyczną instalację naszego pluginu podczas wykonywania komendy:
+
+```yaml
+helm upgrade --install grafana grafana/grafana -f grafana-values.yaml -n monitoring
+```
+
 
 ---
 
@@ -155,21 +173,50 @@ Upewnij się, że masz plik `grafana-values.yaml` w bieżącym katalogu. Następ
 helm upgrade --install grafana grafana/grafana -f grafana-values.yaml -n monitoring
 ```
 
-### Dodatkowe uwagi
-
--
-
-- Pixie UI można otworzyć komendą:
-
-  ```bash
-  px ui
-  ```
-
 ---
 
 ## Odtworzenie rozwiązania
 
-TODO: Opisać jak połączyć wszystkie serwisy po instalacji (api tokeny, logowanie do Grafany itd.)
+### Logowanie do grafany
+
+Aby zalogować się do grafany musimy uzyskać do niej hasło. Robimy to wywołując komendę:
+
+```bash
+kubectl get secret --namespace monitoring grafana -o jsonpath="{.data.admin-password}" | base64 --decode
+```
+
+A następnie musimy przekierować port grafany, aby uzyskać do niego dostęp pod adresem: `http:localhost:3000`:
+
+```bash
+  kubectl --namespace monitoring port-forward {pod_name} 3000
+```
+
+pod_name uzyskamy przy pomocy komendy:
+```bash
+kubectl get pods --namespace monitoring -l "app.kubernetes.io/name=grafana,app.kubernetes.io/instance=grafana
+```
+
+
+### Połączenie z grafaną
+
+Aby dokonać połączenia pixie z grafaną musimy przejść do dodawania nowego źródła danych w grafanie (settings -> Data Source), a następnie dodajemy nowe źródło danych wybierając `Pixie Grafana Datasource Plugin`.
+Po wybraniu musimy podać odpowiednie konfiguracje:
+
+![image](https://github.com/user-attachments/assets/97ddc0a1-6527-4b8e-9ee8-7245bafbdeee)
+
+W polu Pixie Api Key musimy wpisać klucz, który możemy uzyskać na stronie https://work.getcosmic.ai/ lub komendą:
+
+```bash
+px api-key create
+```
+
+W polu Cluster Id musimy wpisać ID uzyskane również na stronie https://work.getcosmic.ai/ lub przy pomocy komendy:
+
+```bash
+px get viziers
+```
+
+Jako Pixie Cloud Address musimy podać: `word.getcosmic.ai:443`
 
 ---
 
@@ -181,7 +228,7 @@ TODO: Usunąć jak nie będzie potrzebne
 
 ## Wykorzystanie AI
 
-TODO: opisać wykorzystanie AI w rysunkach i do poprawy błędów składniowych i gramatycznych) (próba pracy z AI zawiodła przez niedziałający kod z dokumentacji)
+TODO: do poprawy błędów składniowych i gramatycznych) (próba pracy z AI zawiodła przez niedziałający kod z dokumentacji)
 
 ---
 
