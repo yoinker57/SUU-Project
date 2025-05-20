@@ -67,9 +67,9 @@ Sock Shop to symulacja internetowego sklepu sprzedającego skarpetki. Został za
 Sock Shop składa się z kilkunastu mikroserwisów, z których każdy odpowiada za specyficzny obszar funkcjonalny sklepu. Kluczowe komponenty to m.in.:
 - front-end: Serwuje interfejs użytkownika i działa jako bramka API.
 - catalogue: Zarządza listą produktów (skarpetek).
-- carts: Obsługuje koszyk zakupowy dla użytkowników.
-- orders: Procesuje i przechowuje zamówienia.
-- users: Zarządza danymi użytkowników.
+- cart: Obsługuje koszyk zakupowy dla użytkowników.
+- order: Procesuje i przechowuje zamówienia.
+- user: Zarządza danymi użytkowników.
 - payment: Symuluje proces płatności.
 - shipping: Symuluje proces wysyłki.
 
