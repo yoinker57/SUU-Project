@@ -55,23 +55,23 @@ Wizualizacja danych telemetrycznych odbywa się w Grafanie — otwartoźródłow
 
 ## Opis studium przypadku
 
-W ramach projektu, jako środowisko demonstracyjne, wykorzystywana jest aplikacja [Sock Shop](https://github.com/pixie-labs/sock-shop-microservices-demo). Jest to popularna, realistyczna aplikacja demonstracyjna zbudowana w oparciu o architekturę mikroserwisów.
+W ramach projektu, jako środowisko demonstracyjne, wykorzystywana jest aplikacja [Sock Shop](https://github.com/pixie-labs/sock-shop-microservices-demo). Jest to realistyczna aplikacja demonstracyjna zbudowana w oparciu o architekturę mikroserwisów.
 
-### Czym Jest Sock Shop?
-Sock Shop to symulacja internetowego sklepu sprzedającego skarpetki. Został zaprojektowany nie jako pełnoprawny sklep, ale jako złożony system demonstracyjny, którego głównym celem jest ilustrowanie i ułatwianie testowania narzędzi i praktyk związanych z:
-- Architekturą mikroserwisów: Prezentuje podział funkcjonalności na wiele niezależnych, komunikujących się ze sobą serwisów.
-- Monitoringiem i obserwowalnością: Stanowi doskonałe środowisko do zbierania logów, metryk i śladów (tracingu) z rozproszonego systemu.
-- Zarządzaniem kontenerami i orkiestracją: Idealnie nadaje się do demonstracji wdrożeń na platformach takich jak Kubernetes, Docker Swarm czy Nomad.
-- Automatyzacją wdrożeń (CI/CD): Poszczególne mikroserwisy mogą być rozwijane i wdrażane niezależnie.
+### Czym jest Sock Shop?
+Sock Shop to symulacja internetowego sklepu sprzedającego skarpetki. Został zaprojektowany nie jako pełnoprawny sklep, ale jako złożony system demonstracyjny, którego głównym celem jest zilustrowanie i ułatwienie testowania narzędzi i praktyk związanych z:
+- Architekturą mikroserwisów - prezentuje podział funkcjonalności na wiele niezależnych, komunikujących się ze sobą serwisów.
+- Monitoringiem i obserwowalnością - stanowi doskonałe środowisko do zbierania logów, metryk i śladów (tracingu) z rozproszonego systemu.
+- Zarządzaniem kontenerami i orkiestracją - idealnie nadaje się do demonstracji wdrożeń na platformach takich jak Kubernetes.
+- Automatyzacją wdrożeń (CI/CD) - poszczególne mikroserwisy mogą być rozwijane i wdrażane niezależnie.
 ### Architektura
 Sock Shop składa się z kilkunastu mikroserwisów, z których każdy odpowiada za specyficzny obszar funkcjonalny sklepu. Kluczowe komponenty to m.in.:
-- front-end: Serwuje interfejs użytkownika i działa jako bramka API.
-- catalogue: Zarządza listą produktów (skarpetek).
-- cart: Obsługuje koszyk zakupowy dla użytkowników.
-- order: Procesuje i przechowuje zamówienia.
-- user: Zarządza danymi użytkowników.
-- payment: Symuluje proces płatności.
-- shipping: Symuluje proces wysyłki.
+- front-end - serwuje interfejs użytkownika i działa jako bramka API.
+- catalogue - zarządza listą produktów (skarpetek).
+- cart - obsługuje koszyk zakupowy dla użytkowników.
+- order - procesuje i przechowuje zamówienia.
+- user - zarządza danymi użytkowników.
+- payment - symuluje proces płatności.
+- shipping - symuluje proces wysyłki.
 
 ![image](https://github.com/microservices-demo/microservices-demo.github.io/blob/HEAD/assets/Architecture.png)
 
@@ -83,15 +83,15 @@ Co istotne, Sock Shop wykorzystuje różnorodne technologie i języki programowa
 
 ![image](https://github.com/user-attachments/assets/9b989ba0-b3a9-483d-84d7-ea5106b27ff9)
 
-Na zdjęciu powyżej widzimy architekturę rozwiązania. Warto dodać, że to przy pomocy grafany oraz jezyka PXL możemy odpytywać cosmicClouda, a on nam zwraca tylko te dane, które są potrzebne.
+Na środowisku Minikube została postawiona aplikacja Sock Shop. Dodatkowo zostało zainstalowane narzędzie Pixie do jej monitorowania, oraz Grafana do wizualizacji metryk. Następnie Pixie komunikuje się protokołem HTTPS z zewnętrzną chmurą Cosmic Cloud. Grafana wysyła zapytanie do chmury wykorzystując PXL (Pixie Query Language), a następnie Cosmic Cloud przesyła dane do Grafany protokołem HTTPS.
 
 ---
 
 ## Konfiguracja środowiska
 
-Aby poprawnie dostosować aplikację do tego aby działała z pixie nie musimy robić nic. Pixie jest narzędziem, które nie wymaga od nas nic poza zainstalowaniem go, a później korzystaniem albo bezpośrednio przez UI pixie, bądź przez integrację z innymi narzędziami do wizualizacji.
+Pixie jest narzędziem, które nie wymaga żadnych dodatkowych kroków poza instalacją. Można korzystać ze zgromadzonych przez niego metryk bezpośrednio przez Pixie UI, albo przez integrację z innymi narzędziami do wizualizacji.
 
-Ostatnią rzeczą, którą musimy zrobić jest dodanie pluginu do grafany, aby móc używać pixie jako źródła danych. Nie jest to za bardzo skomplikowana operacja, wystarczy stworzyć plik `grafana-values.yaml` a w nim dodać:
+Ostatnią rzeczą, którą musimy zrobić jest dodanie pluginu do Grafany, aby móc używać Pixie jako źródła danych. Nie jest to za bardzo skomplikowana operacja, wystarczy stworzyć plik `grafana-values.yaml` a w nim dodać:
 
 ```yaml
 plugins:
@@ -100,10 +100,9 @@ plugins:
 
 Zapewnimy sobie tym automatyczną instalację naszego pluginu podczas wykonywania komendy:
 
-```yaml
+```bash
 helm upgrade --install grafana grafana/grafana -f grafana-values.yaml -n monitoring
 ```
-
 
 ---
 
@@ -175,29 +174,28 @@ helm upgrade --install grafana grafana/grafana -f grafana-values.yaml -n monitor
 
 ## Odtworzenie rozwiązania
 
-### Logowanie do grafany
+### Logowanie do Grafany
 
-Aby zalogować się do grafany musimy uzyskać do niej hasło. Robimy to wywołując komendę:
+Aby zalogować się do Grafany musimy uzyskać do niej hasło. Robimy to wywołując komendę:
 
 ```bash
 kubectl get secret --namespace monitoring grafana -o jsonpath="{.data.admin-password}" | base64 --decode
 ```
 
-A następnie musimy przekierować port grafany, aby uzyskać do niego dostęp pod adresem: `http:localhost:3000`:
+A następnie musimy przekierować port grafany, aby uzyskać do niego dostęp pod adresem: `http://localhost:3000`:
 
 ```bash
   kubectl --namespace monitoring port-forward {pod_name} 3000
 ```
 
-pod_name uzyskamy przy pomocy komendy:
+Nazwę poda uzyskamy przy pomocy komendy:
 ```bash
 kubectl get pods --namespace monitoring -l "app.kubernetes.io/name=grafana,app.kubernetes.io/instance=grafana
 ```
 
+### Konfiguracja Pixie w Grafanie
 
-### Połączenie z grafaną
-
-Aby dokonać połączenia pixie z grafaną musimy przejść do dodawania nowego źródła danych w grafanie (settings -> Data Source), a następnie dodajemy nowe źródło danych wybierając `Pixie Grafana Datasource Plugin`.
+Aby dokonać połączenia Pixie z Grafaną musimy przejść do dodawania nowego źródła danych w Grafanie (Settings -> Data Source), a następnie dodajemy nowe źródło danych wybierając `Pixie Grafana Datasource Plugin`.
 Po wybraniu musimy podać odpowiednie konfiguracje:
 
 ![image](https://github.com/user-attachments/assets/97ddc0a1-6527-4b8e-9ee8-7245bafbdeee)
@@ -208,27 +206,27 @@ W polu Pixie Api Key musimy wpisać klucz, który możemy uzyskać na stronie ht
 px api-key create
 ```
 
-W polu Cluster Id musimy wpisać ID uzyskane również na stronie https://work.getcosmic.ai/ lub przy pomocy komendy:
+W polu Cluster ID musimy wpisać ID uzyskane również na stronie https://work.getcosmic.ai/ lub przy pomocy komendy:
 
 ```bash
 px get viziers
 ```
 
-Jako Pixie Cloud Address musimy podać: `word.getcosmic.ai:443`
+Jako Pixie Cloud Address musimy podać: `work.getcosmic.ai:443`
 
 ### Import dashboardu
 
-Aby zaimportować dashboard do grafany musimy przejść do zakładki `Dashboards` i kliknąć `New`, a następnie `Import`. Później przekazujemy nasz plik JSON wybrany z katalogu `dashboards` w naszym repozytorium. 
+Aby zaimportować dashboard do Grafany musimy przejść do zakładki `Dashboards` i kliknąć `New`, a następnie `Import`. Później wybieramy plik JSON  z katalogu `dashboards` znajdującego się w tym repozytorium. 
 
 ---
 
 ## Wykorzystanie AI
 
-Używaliśmy AI (chat GPT) głównie do odpytywania odnośnie dokumentacji Pixie, niestety nie udało się nam w ten sposób uzykać istotniejszych informacji. Przydatne okazały się zapytania o konfiguracje grafany - głównie o instalację samej grafany oraz do niej pixie pluginu z czym poradził sobie zaskakująco dobrze (podejrzewamy, że głównie przez prostotę instalacji jak i szeroki dostęp do dokumentacji). 
+Używaliśmy AI (narzędzie ChatGPT) do odpytywania odnośnie dokumentacji Pixie, niestety nie udało się nam w ten sposób uzyskać wszystkich potrzebnych informacji. Przydatne okazały się zapytania o konfigurację Grafany - głównie o instalację samej Grafany oraz ważnego Pixie Pluginu z czym poradził sobie zaskakująco dobrze (podejrzewamy, że było to spowodowane prostotą instalacji jak i szerokim dostępem do dokumentacji). 
 
-Kolejnym wykorzystaniem AI było pytanie o skrypt do automatyzacji całego procesu, co również się udało, głównie przez to, że pierw musieliśmy przejść przez wszystkie kroki ręcznie, więc AI w prompcie miało dostęp do wszystkich komend, których używaliśmy do instalacji. Jednak i tutaj musieliśmy poprawić kilka rzeczy, ponieważ niektóre komendy były błędne, a inne wymagały dodatkowych argumentów.
+Kolejnym wykorzystaniem AI było zapytanie o skrypt do automatyzacji całego procesu, co również się udało, głównie przez to, że najpierw musieliśmy przejść przez wszystkie kroki ręcznie, więc AI w prompcie miało dostęp do wszystkich komend, których używaliśmy do instalacji. Jednak i tutaj musieliśmy poprawić kilka rzeczy, ponieważ niektóre komendy były błędne, a inne wymagały dodatkowych argumentów.
 
-Finalnie stwierdzamy, że AI nie jest w stanie zastąpić dokumentacji, a próby jej użycia mogą wprowadzać dodatkowy chaos.
+Finalnie stwierdzamy, że AI nie jest w stanie zastąpić dokumentacji, a próby jej użycia mogą wprowadzać dodatkowy chaos, ale dobrze sobie radzi z poprawą błędów gramatycznych w dokumentacji :)
 
 ---
 
@@ -246,4 +244,4 @@ Finalnie stwierdzamy, że AI nie jest w stanie zastąpić dokumentacji, a próby
 
 6. Torkel Ödegaard. *Grafana*. [https://grafana.com/grafana/](https://grafana.com/grafana/)
 
-7. microservices-demo. *microservices-demo*. [https://github.com/microservices-demo/microservices-demo](https://github.com/microservices-demo/microservices-demo)
+7. Microservices Demo. *microservices-demo*. [https://github.com/microservices-demo/microservices-demo](https://github.com/microservices-demo/microservices-demo)
