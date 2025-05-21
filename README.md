@@ -89,10 +89,6 @@ Na zdjęciu powyżej widzimy architekturę rozwiązania. Warto dodać, że to pr
 
 ## Konfiguracja środowiska
 
-TODO: Opisać grafana_values i trochę jak był konfigurowany px-sock-shop (jeśli była potrzeba żeby działał z Pixie)
-
-px_sock_shop i monitoring (grafana_values)
-
 Aby poprawnie dostosować aplikację do tego aby działała z pixie nie musimy robić nic. Pixie jest narzędziem, które nie wymaga od nas nic poza zainstalowaniem go, a później korzystaniem albo bezpośrednio przez UI pixie, bądź przez integrację z innymi narzędziami do wizualizacji.
 
 Ostatnią rzeczą, którą musimy zrobić jest dodanie pluginu do grafany, aby móc używać pixie jako źródła danych. Nie jest to za bardzo skomplikowana operacja, wystarczy stworzyć plik `grafana-values.yaml` a w nim dodać:
@@ -226,15 +222,7 @@ Aby zaimportować dashboard do grafany musimy przejść do zakładki `Dashboards
 
 ---
 
-## Wdrożenie wersji demonstracyjnej
-
-TODO: Usunąć jak nie będzie potrzebne
-
----
-
 ## Wykorzystanie AI
-
-TODO: do poprawy błędów składniowych i gramatycznych) (próba pracy z AI zawiodła przez niedziałający kod z dokumentacji)
 
 Używaliśmy AI (chat GPT) głównie do odpytywania odnośnie dokumentacji Pixie, niestety nie udało się nam w ten sposób uzykać istotniejszych informacji. Przydatne okazały się zapytania o konfiguracje grafany - głównie o instalację samej grafany oraz do niej pixie pluginu z czym poradził sobie zaskakująco dobrze (podejrzewamy, że głównie przez prostotę instalacji jak i szeroki dostęp do dokumentacji). 
 
