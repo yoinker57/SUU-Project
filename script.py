@@ -1,5 +1,4 @@
 import subprocess
-import time
 
 def run_command(command, shell=True, capture_output=False):
     print(f"\n>>> Running: {command}")
@@ -35,7 +34,7 @@ pod_name = run_command(
 print(f"Grafana Pod Name: {pod_name}")
 
 print("⏳ Waiting for Grafana pod to be ready...")
-run_command(f"kubectl wait --for=condition=Ready pod/{pod_name} -n monitoring")
+run_command(f"kubectl wait --for=condition=Ready pod/{pod_name} -n monitoring --timeout=120s")
 
 print("\n🔐 Getting Grafana admin password:")
 password = run_command(

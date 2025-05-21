@@ -220,6 +220,10 @@ px get viziers
 
 Jako Pixie Cloud Address musimy podać: `word.getcosmic.ai:443`
 
+### Import dashboardu
+
+Aby zaimportować dashboard do grafany musimy przejść do zakładki `Dashboards` i kliknąć `New`, a następnie `Import`. Później przekazujemy nasz plik JSON wybrany z katalogu `dashboards` w naszym repozytorium. 
+
 ---
 
 ## Wdrożenie wersji demonstracyjnej
@@ -231,6 +235,12 @@ TODO: Usunąć jak nie będzie potrzebne
 ## Wykorzystanie AI
 
 TODO: do poprawy błędów składniowych i gramatycznych) (próba pracy z AI zawiodła przez niedziałający kod z dokumentacji)
+
+Używaliśmy AI (chat GPT) głównie do odpytywania odnośnie dokumentacji Pixie, niestety nie udało się nam w ten sposób uzykać istotniejszych informacji. Przydatne okazały się zapytania o konfiguracje grafany - głównie o instalację samej grafany oraz do niej pixie pluginu z czym poradził sobie zaskakująco dobrze (podejrzewamy, że głównie przez prostotę instalacji jak i szeroki dostęp do dokumentacji). 
+
+Kolejnym wykorzystaniem AI było pytanie o skrypt do automatyzacji całego procesu, co również się udało, głównie przez to, że pierw musieliśmy przejść przez wszystkie kroki ręcznie, więc AI w prompcie miało dostęp do wszystkich komend, których używaliśmy do instalacji. Jednak i tutaj musieliśmy poprawić kilka rzeczy, ponieważ niektóre komendy były błędne, a inne wymagały dodatkowych argumentów.
+
+Finalnie stwierdzamy, że AI nie jest w stanie zastąpić dokumentacji, a próby jej użycia mogą wprowadzać dodatkowy chaos.
 
 ---
 
