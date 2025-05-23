@@ -81,9 +81,13 @@ Co istotne, Sock Shop wykorzystuje różnorodne technologie i języki programowa
 
 ## Architektura rozwiązania
 
-![image](https://github.com/user-attachments/assets/9b989ba0-b3a9-483d-84d7-ea5106b27ff9)
+![image](https://github.com/user-attachments/assets/f9d9c8d2-42f7-4abb-bae9-f67d0994199b)
 
-Na środowisku Minikube została postawiona aplikacja Sock Shop. Dodatkowo zostało zainstalowane narzędzie Pixie do jej monitorowania, oraz Grafana do wizualizacji metryk. Następnie Pixie komunikuje się protokołem HTTPS z zewnętrzną chmurą Cosmic Cloud. Grafana wysyła zapytanie do chmury wykorzystując PXL (Pixie Query Language), a następnie Cosmic Cloud przesyła dane do Grafany protokołem HTTPS.
+Na środowisku Minikube została postawiona aplikacja Sock Shop. Dodatkowo zostało zainstalowane narzędzie Pixie do jej monitorowania oraz OTLP collector wraz z prometheusem do zbierania metryk z naszej aplikacji, oraz Grafana do wizualizacji metryk. 
+
+Pixie za pomocą pluginu eksportuje dane w formacie zgodnym z OpenTelemetry, które następnie są zbierane przez nasz collector. Dane trafiają dalej do prometheusa (bądź alternatywnie do innych rozwiązań np. Loki), a następnie przy jego pomocy do grafany.
+
+Alternatywnie (a zarazem prościej) Pixie komunikuje się protokołem HTTPS z zewnętrzną chmurą Cosmic Cloud. Grafana wysyła zapytanie do chmury wykorzystując PXL (Pixie Query Language), a następnie Cosmic Cloud przesyła dane do Grafany protokołem HTTPS.
 
 ---
 
@@ -162,7 +166,19 @@ Krok 5: Tworzenie przestrzeni nazw dla monitoringu
 kubectl create namespace monitoring
 ```
 
-Krok 6: Instalacja Grafany z użyciem Helm
+Krok 6: Instalacja Collectora
+
+```bash
+kubectl apply -f collector.yaml
+```
+
+Krok 7: Instalacja Prometheusa
+
+```bash
+kubectl apply -f prometheus.yaml -n monitoring
+```
+
+Krok 8: Instalacja Grafany z użyciem Helm
 
 Upewnij się, że masz plik `grafana-values.yaml` w bieżącym katalogu. Następnie uruchom:
 
@@ -192,6 +208,14 @@ Nazwę poda uzyskamy przy pomocy komendy:
 ```bash
 kubectl get pods --namespace monitoring -l "app.kubernetes.io/name=grafana,app.kubernetes.io/instance=grafana
 ```
+
+### Konfiguracja Prometheusa w Grafanie:
+
+Aby dokonać połączenia Prometheusa z Grafaną musimy przejść do dodawania nowego źródła danych w Grafanie (Settings -> Data Source), a następnie dodajemy nowe źródło danych wybierając `Prometheus`.
+Po wybraniu musimy podać tylko adres prometheusa jako `http://prometheus-service.monitoring.svc.cluster.local:9090`. 
+
+Następnie możemy używać danych z prometheusa przy tworzeniu naszych dashboardów.
+
 
 ### Konfiguracja Pixie w Grafanie
 
@@ -229,6 +253,10 @@ Logi HTTP:
 Metryki takie jak wykoszystanie procesora:
 
 ![image](https://github.com/user-attachments/assets/8d31d312-f737-4c94-8a96-363faba91090)
+
+Matryki z prometheusa:
+
+![image](https://github.com/user-attachments/assets/5fbfca7d-72e8-43e1-9be9-a609418bff8c)
 
 
 ## Wykorzystanie AI
