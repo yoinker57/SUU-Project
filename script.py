@@ -18,7 +18,9 @@ commands = [
     "cd /mnt/c/programs/suu/SUU-Project",
     "px deploy --check=false -y",
     "px demo deploy px-sock-shop -y",
+    "kubectl apply -f collector.yaml",
     "kubectl create namespace monitoring",
+    "kubectl apply -f prometheus.yaml -n monitoring",
     "helm upgrade --install grafana grafana/grafana -f grafana-values.yaml -n monitoring",
 ]
 
@@ -34,7 +36,7 @@ pod_name = run_command(
 print(f"Grafana Pod Name: {pod_name}")
 
 print("⏳ Waiting for Grafana pod to be ready...")
-run_command(f"kubectl wait --for=condition=Ready pod/{pod_name} -n monitoring --timeout=120s")
+run_command(f"kubectl wait --for=condition=Ready pod/{pod_name} -n monitoring --timeout=150s")
 
 print("\n🔐 Getting Grafana admin password:")
 password = run_command(
@@ -49,3 +51,4 @@ run_command(f"kubectl --namespace monitoring port-forward {pod_name} 3000")
 
 
 # grafana pixie url address work.getcosmic.ai:443
+# grafana prometheus url http://prometheus-service.monitoring.svc.cluster.local:9090
