@@ -220,6 +220,17 @@ Aby zaimportować dashboard do Grafany musimy przejść do zakładki `Dashboards
 
 ---
 
+## Przykładowe dashboardy
+
+Logi HTTP:
+
+![image](https://github.com/user-attachments/assets/00987edc-f330-417e-9601-38c8d35912c9)
+
+Metryki takie jak wykoszystanie procesora:
+
+![image](https://github.com/user-attachments/assets/8d31d312-f737-4c94-8a96-363faba91090)
+
+
 ## Wykorzystanie AI
 
 Używaliśmy AI (narzędzie ChatGPT) do odpytywania odnośnie dokumentacji Pixie, niestety nie udało się nam w ten sposób uzyskać wszystkich potrzebnych informacji. Przydatne okazały się zapytania o konfigurację Grafany - głównie o instalację samej Grafany oraz ważnego Pixie Pluginu z czym poradził sobie zaskakująco dobrze (podejrzewamy, że było to spowodowane prostotą instalacji jak i szerokim dostępem do dokumentacji). 
