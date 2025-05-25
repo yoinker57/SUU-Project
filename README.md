@@ -8,12 +8,12 @@
 
 ## Spis treści
 
-1.  [Wprowadzenie](#wprowadzenie)  
-2.  [Podstawy teoretyczne i stos technologiczny](#podstawy-teoretyczne-i-stos-technologiczny)  
-3.  [Opis studium przypadku](#opis-studium-przypadku)  
-4.  [Architektura rozwiązania](#architektura-rozwiązania)  
-5.  [Konfiguracja środowiska](#konfiguracja-środowiska)  
-6.  [Sposób instalacji](#sposób-instalacji)  
+1.  [Wprowadzenie](#wprowadzenie)
+2.  [Podstawy teoretyczne i stos technologiczny](#podstawy-teoretyczne-i-stos-technologiczny)
+3.  [Opis studium przypadku](#opis-studium-przypadku)
+4.  [Architektura rozwiązania](#architektura-rozwiązania)
+5.  [Konfiguracja środowiska](#konfiguracja-środowiska)
+6.  [Sposób instalacji](#sposób-instalacji)
 7.  [Odtworzenie rozwiązania](#odtworzenie-rozwiązania)
 8.  [Wdrożenie wersji demonstracyjnej](wdrożenie-wersji-demonstracyjnej)
 9.  [Wykorzystanie AI](#wykorzystanie-ai)
@@ -83,7 +83,7 @@ Co istotne, Sock Shop wykorzystuje różnorodne technologie i języki programowa
 
 ![image](https://github.com/user-attachments/assets/f9d9c8d2-42f7-4abb-bae9-f67d0994199b)
 
-Na środowisku Minikube została postawiona aplikacja Sock Shop. Dodatkowo zostało zainstalowane narzędzie Pixie do jej monitorowania oraz OTLP collector wraz z prometheusem do zbierania metryk z naszej aplikacji, oraz Grafana do wizualizacji metryk. 
+Na środowisku Minikube została postawiona aplikacja Sock Shop. Dodatkowo zostało zainstalowane narzędzie Pixie do jej monitorowania oraz OTLP collector wraz z prometheusem do zbierania metryk z naszej aplikacji, oraz Grafana do wizualizacji metryk.
 
 Pixie za pomocą pluginu eksportuje dane w formacie zgodnym z OpenTelemetry, które następnie są zbierane przez nasz collector. Dane trafiają dalej do prometheusa (bądź alternatywnie do innych rozwiązań np. Loki), a następnie przy jego pomocy do grafany.
 
@@ -121,7 +121,7 @@ Jako krok wstępny należy upewnić się, czy poniższe narzędzia są zainstalo
 
 ### Instalacja przez skrypt w Pythonie
 
-Dodatkowo wymagany zainstalowany język Python. 
+Dodatkowo wymagany zainstalowany język Python.
 
 Krok 1: Przejście do katalogu projektu
 
@@ -212,7 +212,7 @@ kubectl get pods --namespace monitoring -l "app.kubernetes.io/name=grafana,app.k
 ### Konfiguracja Prometheusa w Grafanie:
 
 Aby dokonać połączenia Prometheusa z Grafaną musimy przejść do dodawania nowego źródła danych w Grafanie (Settings -> Data Source), a następnie dodajemy nowe źródło danych wybierając `Prometheus`.
-Po wybraniu musimy podać tylko adres prometheusa jako `http://prometheus-service.monitoring.svc.cluster.local:9090`. 
+Po wybraniu musimy podać tylko adres prometheusa jako `http://prometheus-service.monitoring.svc.cluster.local:9090`.
 
 Następnie możemy używać danych z prometheusa przy tworzeniu naszych dashboardów.
 
@@ -240,28 +240,35 @@ Jako Pixie Cloud Address musimy podać: `work.getcosmic.ai:443`
 
 ### Import dashboardu
 
-Aby zaimportować dashboard do Grafany musimy przejść do zakładki `Dashboards` i kliknąć `New`, a następnie `Import`. Później wybieramy plik JSON  z katalogu `dashboards` znajdującego się w tym repozytorium. 
+Aby zaimportować dashboard do Grafany musimy przejść do zakładki `Dashboards` i kliknąć `New`, a następnie `Import`. Później wybieramy plik JSON  z katalogu `dashboards` znajdującego się w tym repozytorium.
 
 ---
 
 ## Przykładowe dashboardy
 
-Logi HTTP:
+### Śledzenie requestów:
+Pixie monitoruje wywołania stemowe związane z siecią. Dzięki temu może przechwytywać dane przesyłane między usługami, analizować je i prezentować w czytelnej formie. Dostępny jest pełny podgląd zawartości zapytania. Wspierane protokoły to między innymi HTTP, DNS, MySQL, Redis, Kafka.
 
 ![image](https://github.com/user-attachments/assets/00987edc-f330-417e-9601-38c8d35912c9)
 
-Metryki takie jak wykoszystanie procesora:
+### Profile aplikacji
+Co około 10ms tworzony jest zrzut aktualnego stosu wywołań. Zawiera on aktualnie wywoływaną funkcje, a także wszystkie funkcje nadrzędne, które zostały wywołane, aby dojść do tego punktu w kodzie. Zebrane próbki są agregowane w szerszym, 30-sekundowym oknie czasowym, które obejmuje tysiące śladów stosu. Następnie te ślady są grupowane według wspólnych funkcji nadrzędnych. Na każdym poziomie — im szerszy fragment stosu, tym częściej dana funkcja pojawiała się w śladach stosu. Szersze ślady stosu są zazwyczaj bardziej interesujące, ponieważ wskazują, że znaczna część czasu działania aplikacji była spędzana w tej funkcji.
+Funkcjonalność dostępna jest dla języków: Go, C/C++, Rust.
+
+TODO: dodać flamegraph jakiś
+
+### Metryki takie jak wykoszystanie procesora:
 
 ![image](https://github.com/user-attachments/assets/8d31d312-f737-4c94-8a96-363faba91090)
 
-Matryki z prometheusa:
+### Matryki z prometheusa:
 
 ![image](https://github.com/user-attachments/assets/5fbfca7d-72e8-43e1-9be9-a609418bff8c)
 
 
 ## Wykorzystanie AI
 
-Używaliśmy AI (narzędzie ChatGPT) do odpytywania odnośnie dokumentacji Pixie, niestety nie udało się nam w ten sposób uzyskać wszystkich potrzebnych informacji. Przydatne okazały się zapytania o konfigurację Grafany - głównie o instalację samej Grafany oraz ważnego Pixie Pluginu z czym poradził sobie zaskakująco dobrze (podejrzewamy, że było to spowodowane prostotą instalacji jak i szerokim dostępem do dokumentacji). 
+Używaliśmy AI (narzędzie ChatGPT) do odpytywania odnośnie dokumentacji Pixie, niestety nie udało się nam w ten sposób uzyskać wszystkich potrzebnych informacji. Przydatne okazały się zapytania o konfigurację Grafany - głównie o instalację samej Grafany oraz ważnego Pixie Pluginu z czym poradził sobie zaskakująco dobrze (podejrzewamy, że było to spowodowane prostotą instalacji jak i szerokim dostępem do dokumentacji).
 
 Kolejnym wykorzystaniem AI było zapytanie o skrypt do automatyzacji całego procesu, co również się udało, głównie przez to, że najpierw musieliśmy przejść przez wszystkie kroki ręcznie, więc AI w prompcie miało dostęp do wszystkich komend, których używaliśmy do instalacji. Jednak i tutaj musieliśmy poprawić kilka rzeczy, ponieważ niektóre komendy były błędne, a inne wymagały dodatkowych argumentów.
 
