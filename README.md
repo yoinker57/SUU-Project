@@ -253,9 +253,9 @@ Pixie monitoruje wywołania stemowe związane z siecią. Dzięki temu może prze
 
 ### Profile aplikacji
 Co około 10ms tworzony jest zrzut aktualnego stosu wywołań. Zawiera on aktualnie wywoływaną funkcje, a także wszystkie funkcje nadrzędne, które zostały wywołane, aby dojść do tego punktu w kodzie. Zebrane próbki są agregowane w szerszym, 30-sekundowym oknie czasowym, które obejmuje tysiące śladów stosu. Następnie te ślady są grupowane według wspólnych funkcji nadrzędnych. Na każdym poziomie — im szerszy fragment stosu, tym częściej dana funkcja pojawiała się w śladach stosu. Szersze ślady stosu są zazwyczaj bardziej interesujące, ponieważ wskazują, że znaczna część czasu działania aplikacji była spędzana w tej funkcji.
-Funkcjonalność dostępna jest dla języków: Go, C/C++, Rust.
+Funkcjonalność dostępna jest dla języków: Go, C/C++, Rust oraz Java.
 
-TODO: dodać flamegraph jakiś
+![image](https://github.com/user-attachments/assets/76279908-a025-4708-a832-ff94fb906a08)
 
 ### Metryki takie jak wykoszystanie procesora:
 
