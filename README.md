@@ -83,9 +83,9 @@ Co istotne, Sock Shop wykorzystuje różnorodne technologie i języki programowa
 
 ![image](https://github.com/user-attachments/assets/3c44c7eb-a3ea-4e9a-ac8e-024dcffe9170)
 
-Na środowisku Minikube została postawiona aplikacja Sock Shop. Dodatkowo zostało zainstalowane narzędzie Pixie do jej monitorowania oraz OTLP collector wraz z prometheusem do zbierania metryk z naszej aplikacji, oraz Grafana do wizualizacji metryk.
+Na środowisku Minikube została postawiona aplikacja Sock Shop i narzędzie Pixie do jej monitorowania. Dodatkowo został zainstalowany OTel Collector wraz z Prometheusem do zbierania metryk z naszej aplikacji, oraz Grafana do wizualizacji metryk.
 
-Pixie za pomocą pluginu eksportuje dane w formacie zgodnym z OpenTelemetry, które następnie są zbierane przez nasz collector. Dane trafiają dalej do prometheusa (bądź alternatywnie do innych rozwiązań np. Loki), a następnie przy jego pomocy do grafany.
+Pixie za pomocą pluginu eksportuje dane w formacie zgodnym z OpenTelemetry, które następnie są zbierane lokalnie przez OTel Collector. Dane są wysyłane do Prometheusa (bądź alternatywnie do innych rozwiązań np. Loki) i w nim przechowywane, a następnie są przekazywane do Grafany.
 
 Alternatywnie (a zarazem prościej) Pixie komunikuje się protokołem HTTPS z zewnętrzną chmurą Cosmic Cloud. Grafana wysyła zapytanie do chmury wykorzystując PXL (Pixie Query Language), a następnie Cosmic Cloud przesyła dane do Grafany protokołem HTTPS.
 
@@ -166,7 +166,7 @@ Krok 5: Tworzenie przestrzeni nazw dla monitoringu
 kubectl create namespace monitoring
 ```
 
-Krok 6: Instalacja Collectora
+Krok 6: Instalacja OTel Collectora
 
 ```bash
 kubectl apply -f collector.yaml
@@ -212,9 +212,9 @@ kubectl get pods --namespace monitoring -l "app.kubernetes.io/name=grafana,app.k
 ### Konfiguracja Prometheusa w Grafanie:
 
 Aby dokonać połączenia Prometheusa z Grafaną musimy przejść do dodawania nowego źródła danych w Grafanie (Settings -> Data Source), a następnie dodajemy nowe źródło danych wybierając `Prometheus`.
-Po wybraniu musimy podać tylko adres prometheusa jako `http://prometheus-service.monitoring.svc.cluster.local:9090`.
+Po wybraniu musimy podać jego adres jako `http://prometheus-service.monitoring.svc.cluster.local:9090`.
 
-Następnie możemy używać danych z prometheusa przy tworzeniu naszych dashboardów.
+Następnie możemy używać danych z Prometheusa przy tworzeniu naszych dashboardów.
 
 
 ### Konfiguracja Pixie w Grafanie
@@ -247,7 +247,7 @@ Aby zaimportować dashboard do Grafany musimy przejść do zakładki `Dashboards
 ## Przykładowe dashboardy
 
 ### Śledzenie requestów:
-Pixie monitoruje wywołania stemowe związane z siecią. Dzięki temu może przechwytywać dane przesyłane między usługami, analizować je i prezentować w czytelnej formie. Dostępny jest pełny podgląd zawartości zapytania. Wspierane protokoły to między innymi HTTP, DNS, MySQL, Redis, Kafka.
+Pixie monitoruje wywołania systemowe związane z siecią. Dzięki temu może przechwytywać dane przesyłane między usługami, analizować je i prezentować w czytelnej formie. Dostępny jest pełny podgląd zawartości zapytania. Wspierane protokoły to między innymi HTTP, DNS, MySQL, Redis, Kafka.
 
 ![image](https://github.com/user-attachments/assets/00987edc-f330-417e-9601-38c8d35912c9)
 
@@ -257,11 +257,11 @@ Funkcjonalność dostępna jest dla języków: Go, C/C++, Rust oraz Java.
 
 ![image](https://github.com/user-attachments/assets/76279908-a025-4708-a832-ff94fb906a08)
 
-### Metryki takie jak wykoszystanie procesora:
+### Metryki takie jak wykorzystanie procesora:
 
 ![image](https://github.com/user-attachments/assets/8d31d312-f737-4c94-8a96-363faba91090)
 
-### Matryki z prometheusa:
+### Metryki z Prometheusa:
 
 ![image](https://github.com/user-attachments/assets/5fbfca7d-72e8-43e1-9be9-a609418bff8c)
 
