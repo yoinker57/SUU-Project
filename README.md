@@ -81,7 +81,8 @@ Co istotne, Sock Shop wykorzystuje różnorodne technologie i języki programowa
 
 ## Architektura rozwiązania
 
-![image](https://github.com/user-attachments/assets/3c44c7eb-a3ea-4e9a-ac8e-024dcffe9170)
+![image](https://github.com/user-attachments/assets/8b0dcfdb-c6ba-4898-8a41-5041d70055fd)
+
 
 Na środowisku Minikube została postawiona aplikacja Sock Shop i narzędzie Pixie do jej monitorowania. Dodatkowo został zainstalowany OTel Collector wraz z Prometheusem do zbierania metryk z naszej aplikacji, oraz Grafana do wizualizacji metryk.
 
